@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- ============================================================
+     PREDLOGA SPLETNE STRANI · 9.r · OŠ Božidarja Jakca
+     Kako jo urejaš:
+       1. Datoteko odpri v Beležnici (desni klik → Odpri z → Beležnica)
+          ali v programu VS Code.
+       2. Poišči vse oznake  SPREMENI  (Ctrl + F) in zamenjaj besedila.
+       3. Shrani (Ctrl + S) in datoteko odpri v brskalniku, da vidiš spremembe.
+       4. Ko si zadovoljen, jo objavi na GitHub Pages (glej delovni list).
+     Datoteka se MORA imenovati index.html, da je to glavna stran.
+     ============================================================ -->
+<title>Nikina stran</title> <!-- SPREMENI: ime v zavihku brskalnika -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+  /* Postavitev: ena stolpčna stran z »nalepkami«, barvno temo menjaš z gumbi v glavi.
+     Barve so zapisane samo tukaj – spremeni jih in spremeni se cela stran. */
+  :root{
+    --ozadje:#11141f;
+    --ploskev:#1a1f2e;
+    --ploskev-2:#232a3d;
+    --crta:#30384f;
+    --besedilo:#f1efe8;
+    --sivo:#a3abc0;
+    --poudarek:#4fc3f7;      /* glavna barva – spremeni jo! */
+    --poudarek-2:#b39dff;    /* druga barva */
+    --na-poudarku:#08131c;   /* barva besedila na gumbu */
+    --naslovi:"Bricolage Grotesque", "Trebuchet MS", Arial, sans-serif;
+    --telo:"Figtree", "Segoe UI", Arial, sans-serif;
+    color-scheme:dark;
+  }
+  /* Barvne teme – izbereš jih z gumbi zgoraj desno */
+  :root[data-tema="limeta"]{--poudarek:#b6e35a;--poudarek-2:#4fd1b5;--na-poudarku:#141c05}
+  :root[data-tema="malina"]{--poudarek:#ff6b9a;--poudarek-2:#ffb14e;--na-poudarku:#23060f}
+  :root[data-tema="zlata"] {--poudarek:#f2c14e;--poudarek-2:#ef7d57;--na-poudarku:#221802}
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--ozadje);color:var(--besedilo);
+    font-family:var(--telo);font-size:17px;line-height:1.6;
+  }
+  a{color:var(--poudarek)}
+  .ovoj{max-width:980px;margin:0 auto;padding-inline:20px}
+
+  /* ---------- glava ---------- */
+  header{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
+    background:color-mix(in srgb,var(--ozadje) 88%,transparent);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--crta);
+  }
+  .glava{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-block:12px}
+  .logo{font-family:var(--naslovi);font-weight:800;font-size:1.25rem;text-decoration:none;color:var(--besedilo)}
+  .logo span{color:var(--poudarek)}
+  nav{display:flex;gap:14px;flex-wrap:wrap;margin-left:auto}
+  nav a{color:var(--sivo);text-decoration:none;font-weight:600;font-size:.95rem}
+  nav a:hover{color:var(--besedilo)}
+  .teme{display:flex;gap:6px}
+  .teme button{
+    width:22px;height:22px;border-radius:50%;cursor:pointer;
+    border:2px solid var(--ozadje);outline:1px solid var(--crta);
+  }
+  .teme button[aria-pressed="true"]{outline:2px solid var(--besedilo)}
+
+  /* ---------- uvod ---------- */
+  .uvod{display:grid;grid-template-columns:1.4fr 1fr;gap:36px;align-items:center;padding-block:64px 48px}
+  .uvod > *{min-width:0}
+  .nadnaslov{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;color:var(--poudarek)}
+  h1{
+    font-family:var(--naslovi);font-weight:800;line-height:1.02;
+    font-size:clamp(2.6rem,7vw,4.6rem);margin:.15em 0 .3em;text-wrap:balance;
+  }
+  h1 .barvno{
+    background:linear-gradient(95deg,var(--poudarek),var(--poudarek-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .uvod p{color:var(--sivo);font-size:1.12rem;max-width:40ch;margin:0 0 24px}
+  .gumbi{display:flex;gap:12px;flex-wrap:wrap}
+  .gumb{
+    font-family:var(--telo);font-weight:700;font-size:1rem;text-decoration:none;cursor:pointer;
+    padding:12px 22px;border-radius:12px;border:2px solid var(--poudarek);
+    background:var(--poudarek);color:var(--na-poudarku);transition:transform .15s;
+  }
+  .gumb.obroba{background:transparent;color:var(--besedilo);border-color:var(--crta)}
+  .gumb:hover{transform:translateY(-2px)}
+  .gumb:focus-visible,.teme button:focus-visible,.odg:focus-visible{outline:3px solid var(--poudarek-2);outline-offset:2px}
+
+  .nalepka{
+    background:var(--ploskev);border:1px solid var(--crta);border-radius:20px;
+    padding:22px;transform:rotate(2deg);box-shadow:0 20px 40px -24px #000;
+  }
+  .nalepka h2{font-family:var(--naslovi);font-size:1.05rem;margin:0 0 12px;color:var(--poudarek)}
+  .nalepka dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
+  .nalepka dt{color:var(--sivo);font-size:.9rem}
+  .nalepka dd{margin:0;font-weight:700;text-align:right}
+
+  /* ---------- razdelki ---------- */
+  section{padding-block:44px;border-top:1px solid var(--crta)}
+  h2.naslov{font-family:var(--naslovi);font-weight:800;font-size:clamp(1.7rem,4vw,2.3rem);margin:0 0 18px}
+  h2.naslov small{display:block;font-family:var(--telo);font-size:.85rem;font-weight:600;color:var(--poudarek);letter-spacing:.1em;text-transform:uppercase}
+  .omeni{max-width:65ch;color:var(--sivo)}
+  .omeni b{color:var(--besedilo)}
+
+  .kartice{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .kartica{background:var(--ploskev);border:1px solid var(--crta);border-radius:16px;padding:20px}
+  .kartica .ikona{font-size:2.4rem;line-height:1}
+  .kartica h3{font-family:var(--naslovi);margin:10px 0 6px;font-size:1.25rem}
+  .kartica p{margin:0;color:var(--sivo);font-size:.96rem}
+
+  ol.lestvica{list-style:none;padding:0;margin:0;display:grid;gap:10px;counter-reset:mesto}
+  ol.lestvica li{
+    counter-increment:mesto;display:flex;align-items:center;gap:16px;
+    background:var(--ploskev);border:1px solid var(--crta);border-radius:12px;padding:12px 16px;
+  }
+  ol.lestvica li::before{
+    content:counter(mesto);font-family:var(--naslovi);font-weight:800;font-size:1.5rem;
+    color:var(--poudarek);width:1.4em;text-align:center;
+  }
+  ol.lestvica span{color:var(--sivo);font-size:.92rem;margin-left:auto;text-align:right}
+
+  /* kviz */
+  .kviz{background:var(--ploskev);border:1px solid var(--crta);border-radius:18px;padding:22px}
+  .vprasanje{margin:0 0 18px}
+  .vprasanje p{font-weight:700;margin:0 0 10px}
+  .odgovori{display:flex;flex-wrap:wrap;gap:8px}
+  .odg{
+    font-family:var(--telo);font-size:.96rem;cursor:pointer;
+    background:var(--ploskev-2);color:var(--besedilo);border:1px solid var(--crta);
+    border-radius:999px;padding:8px 16px;
+  }
+  .odg.prav{background:#2e7d4f;border-color:#46b374}
+  .odg.narobe{background:#8a2f3b;border-color:#c9505f}
+  .odg:disabled{cursor:default}
+  .rezultat{font-family:var(--naslovi);font-weight:700;font-size:1.2rem;color:var(--poudarek);min-height:1.5em}
+
+  /* cilji */
+  .cilj{margin:0 0 14px}
+  .cilj .vrh{display:flex;justify-content:space-between;gap:12px;font-weight:600}
+  .cilj .vrh span{color:var(--sivo);font-variant-numeric:tabular-nums}
+  .trak{height:12px;background:var(--ploskev-2);border-radius:999px;overflow:hidden;margin-top:6px}
+  .trak i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--poudarek),var(--poudarek-2))}
+
+  footer{border-top:1px solid var(--crta);padding-block:28px 40px;color:var(--sivo);font-size:.9rem;text-align:center}
+
+  @media (max-width:720px){
+    .uvod{grid-template-columns:1fr;padding-block:40px 32px}
+    .nalepka{transform:none}
+    nav{margin-left:0;order:3;width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gumb{transition:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="ovoj glava">
+    <!-- SPREMENI: tvoje ime ali vzdevek -->
+    <a class="logo" href="#">Nika<span>.</span></a>
+    <nav>
+      <a href="#o-meni">O meni</a>
+      <a href="#hobiji">Hobiji</a>
+      <a href="#top5">Top 5</a>
+      <a href="#kviz">Kviz</a>
+    </nav>
+    <div class="teme" aria-label="Barvna tema">
+      <button style="background:#4fc3f7" data-tema="" aria-pressed="true" title="Ocean"></button>
+      <button style="background:#b6e35a" data-tema="limeta" aria-pressed="false" title="Limeta"></button>
+      <button style="background:#ff6b9a" data-tema="malina" aria-pressed="false" title="Malina"></button>
+      <button style="background:#f2c14e" data-tema="zlata" aria-pressed="false" title="Zlata"></button>
+    </div>
+  </div>
+</header>
+
+<main class="ovoj">
+
+  <!-- ================= UVOD ================= -->
+  <div class="uvod">
+    <div>
+      <div class="nadnaslov">9. razred · Ljubljana</div> <!-- SPREMENI (ne piši točnega naslova!) -->
+      <h1>Živjo, jaz sem <span class="barvno">Nika</span>.</h1> <!-- SPREMENI -->
+      <p>Rišem stripe, igram košarko in v Minecraftu gradim naprave, ki jih nihče ne razume. Tukaj je moj kotiček interneta.</p> <!-- SPREMENI -->
+      <div class="gumbi">
+        <a class="gumb" href="#hobiji">Moji hobiji</a>
+        <a class="gumb obroba" href="#kviz">Reši kviz o meni</a>
+      </div>
+    </div>
+
+    <aside class="nalepka">
+      <h2>Na hitro o meni</h2>
+      <!-- SPREMENI: vsaka vrstica je par <dt>vprašanje</dt><dd>odgovor</dd> -->
+      <dl>
+        <dt>Najljubša barva</dt><dd>turkizna</dd>
+        <dt>Najljubši predmet</dt><dd>računalništvo</dd>
+        <dt>Zajtrk</dt><dd>palačinke</dd>
+        <dt>Supermoč</dt><dd>teleportacija</dd>
+        <dt>Hišni ljubljenček</dt><dd>mačka Piki</dd>
+      </dl>
+    </aside>
+  </div>
+
+  <!-- ================= O MENI ================= -->
+  <section id="o-meni">
+    <h2 class="naslov"><small>Kdo sem</small>O meni</h2>
+    <div class="omeni">
+      <!-- SPREMENI: napiši 3–5 povedi o sebi. Brez priimka, naslova, telefona ali šole z razredom! -->
+      <p>Sem <b>Nika</b> in hodim v deveti razred. Najraje imam dneve, ko se lahko cel popoldan zaprem v sobo s skicirko in slušalkami. Rada imam stvari, ki jih lahko naredim sama od začetka do konca, zato me je začelo zanimati tudi programiranje.</p>
+      <p>To stran sem naredila sama: kodo sem napisala s pomočjo umetne inteligence, nato pa sem jo <b>popravila in prilagodila</b> po svoje. Objavljena je zastonj na GitHub Pages.</p>
+    </div>
+  </section>
+
+  <!-- ================= HOBIJI ================= -->
+  <section id="hobiji">
+    <h2 class="naslov"><small>Kaj počnem</small>Moji hobiji</h2>
+    <!-- SPREMENI: vsaka kartica je en hobi. Emoji zamenjaš s kopiranjem z https://emojipedia.org -->
+    <div class="kartice">
+      <article class="kartica">
+        <div class="ikona">🏀</div>
+        <h3>Košarka</h3>
+        <p>Trikrat na teden treniram v klubu. Moj najboljši met je trojka iz levega kota.</p>
+      </article>
+      <article class="kartica">
+        <div class="ikona">✏️</div>
+        <h3>Risanje stripov</h3>
+        <p>Rišem kratke stripe o mački, ki misli, da je detektivka. Zaenkrat ima 14 epizod.</p>
+      </article>
+      <article class="kartica">
+        <div class="ikona">⛏️</div>
+        <h3>Minecraft</h3>
+        <p>Gradim avtomatske farme z redstonom. Najbolj sem ponosna na dvigalo za krave.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= TOP 5 ================= -->
+  <section id="top5">
+    <h2 class="naslov"><small>Lestvica</small>Mojih top 5 pesmi</h2> <!-- SPREMENI: lahko tudi filmi, igre, knjige … -->
+    <ol class="lestvica">
+      <li>Prva pesem <span>izvajalec</span></li>   <!-- SPREMENI -->
+      <li>Druga pesem <span>izvajalec</span></li>
+      <li>Tretja pesem <span>izvajalec</span></li>
+      <li>Četrta pesem <span>izvajalec</span></li>
+      <li>Peta pesem <span>izvajalec</span></li>
+    </ol>
+  </section>
+
+  <!-- ================= KVIZ ================= -->
+  <section id="kviz">
+    <h2 class="naslov"><small>Preizkusi se</small>Koliko me poznaš?</h2>
+    <!-- SPREMENI: pri vsakem vprašanju ima pravilni odgovor oznako data-prav -->
+    <div class="kviz">
+      <div class="vprasanje">
+        <p>1. Kako je ime moji mački?</p>
+        <div class="odgovori">
+          <button class="odg">Luna</button>
+          <button class="odg" data-prav>Piki</button>
+          <button class="odg">Muri</button>
+        </div>
+      </div>
+      <div class="vprasanje">
+        <p>2. Kateri šport treniram?</p>
+        <div class="odgovori">
+          <button class="odg">odbojko</button>
+          <button class="odg">plavanje</button>
+          <button class="odg" data-prav>košarko</button>
+        </div>
+      </div>
+      <div class="vprasanje">
+        <p>3. Kaj najraje jem za zajtrk?</p>
+        <div class="odgovori">
+          <button class="odg" data-prav>palačinke</button>
+          <button class="odg">kosmiče</button>
+          <button class="odg">jajca</button>
+        </div>
+      </div>
+      <div class="rezultat" id="rezultat" aria-live="polite"></div>
+      <button class="gumb obroba" id="znova" type="button">Poskusi znova</button>
+    </div>
+  </section>
+
+  <!-- ================= CILJI ================= -->
+  <section id="cilji">
+    <h2 class="naslov"><small>Letos</small>Moji cilji</h2>
+    <!-- SPREMENI: številka v style="width:70%" pove, kako daleč si -->
+    <div class="cilj"><div class="vrh">Naučiti se osnov HTML in CSS <span>70 %</span></div><div class="trak"><i style="width:70%"></i></div></div>
+    <div class="cilj"><div class="vrh">Dokončati 20. epizodo stripa <span>70 %</span></div><div class="trak"><i style="width:70%"></i></div></div>
+    <div class="cilj"><div class="vrh">Zadeti 10 trojk zapored <span>40 %</span></div><div class="trak"><i style="width:40%"></i></div></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="ovoj">
+    Narejeno z ročno popravljeno kodo · 2026 · objavljeno na GitHub Pages <!-- SPREMENI -->
+  </div>
+</footer>
+
+<script>
+  /* ---- barvne teme ---- */
+  const gumbiTeme = document.querySelectorAll('.teme button');
+  function nastaviTemo(ime){
+    if(ime) document.documentElement.dataset.tema = ime;
+    else delete document.documentElement.dataset.tema;
+    gumbiTeme.forEach(g => g.setAttribute('aria-pressed', g.dataset.tema === ime));
+    try{ localStorage.setItem('tema', ime); }catch(e){}
+  }
+  gumbiTeme.forEach(g => g.addEventListener('click', () => nastaviTemo(g.dataset.tema)));
+  try{ const s = localStorage.getItem('tema'); if(s !== null) nastaviTemo(s); }catch(e){}
+
+  /* ---- kviz ---- */
+  const vprasanja = document.querySelectorAll('.vprasanje');
+  const rezultat = document.getElementById('rezultat');
+  let tocke = 0, odgovorjeno = 0;
+
+  vprasanja.forEach(v => {
+    const gumbi = v.querySelectorAll('.odg');
+    gumbi.forEach(g => g.addEventListener('click', () => {
+      gumbi.forEach(x => x.disabled = true);
+      if(g.hasAttribute('data-prav')){ g.classList.add('prav'); tocke++; }
+      else{
+        g.classList.add('narobe');
+        v.querySelector('[data-prav]').classList.add('prav');
+      }
+      odgovorjeno++;
+      if(odgovorjeno === vprasanja.length){
+        const sporocila = ['Hmm, ali se sploh poznava? 😅', 'Nekaj veš o meni!', 'Skoraj popolno!', 'Ti si moj pravi prijatelj! 🎉'];
+        rezultat.textContent = `Rezultat: ${tocke} / ${vprasanja.length} – ${sporocila[Math.round(tocke / vprasanja.length * 3)]}`;
+      }
+    }));
+  });
+
+  document.getElementById('znova').addEventListener('click', () => {
+    tocke = 0; odgovorjeno = 0; rezultat.textContent = '';
+    document.querySelectorAll('.odg').forEach(g => { g.disabled = false; g.classList.remove('prav','narobe'); });
+  });
+</script>
+</body>
+</html>
